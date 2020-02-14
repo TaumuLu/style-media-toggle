@@ -1,0 +1,46 @@
+{
+  "name": "style-media-toggle",
+  "version": "1.0.0",
+  "description": "style media toggle",
+  "main": "./lib/index.js",
+  "scripts": {
+    "watch": "rollup -c -w",
+    "build": "rollup -c",
+    "test": "http-server -o /test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TaumuLu/style-media-toggle.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TaumuLu/style-media-toggle/issues"
+  },
+  "homepage": "https://github.com/TaumuLu/style-media-toggle#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "http-server": "^0.12.1",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.7",
+    "prettier": "^1.19.1",
+    "rollup": "^1.31.1",
+    "rollup-plugin-typescript2": "^0.26.0",
+    "typescript": "^3.7.5"
+  }
+}
