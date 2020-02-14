@@ -6,7 +6,9 @@
   "scripts": {
     "watch": "rollup -c -w",
     "build": "rollup -c",
-    "test": "http-server -o /test"
+    "test": "http-server -o /test",
+    "clean": "rm -rf ./lib",
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",
