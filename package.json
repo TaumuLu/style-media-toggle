@@ -1,6 +1,6 @@
 {
   "name": "style-media-toggle",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "style media toggle",
   "main": "./lib/index.js",
   "scripts": {
