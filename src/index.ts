@@ -49,13 +49,15 @@ class MediaToggle {
 const getWatch = (observer: Function) => () => {
   const mediaRules: CSSMediaRule[] = []
   Array.from(document.styleSheets).forEach(styleSheet => {
-    if (Object.hasOwnProperty.call(styleSheet, 'cssRules')) {
+    try {
       const { cssRules } = styleSheet as any
       Array.from(cssRules).forEach(rule => {
         if (rule instanceof CSSMediaRule) {
           mediaRules.push(rule)
         }
       })
+    } catch (e) {
+      // console.info(e)
     }
   })
   observer(mediaRules)
