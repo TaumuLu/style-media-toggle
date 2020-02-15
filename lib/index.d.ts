@@ -5,10 +5,10 @@ interface IQuiet {
 declare class MediaToggle {
     constructor(options: IQuiet);
     options: IQuiet;
-    cssMediaRules: CSSMediaRule[];
+    cssMediaRules: Set<CSSMediaRule>;
     cssTexts: string[][];
     addRule(rule: CSSMediaRule): void;
-    get(): CSSMediaRule[];
+    get(): Set<CSSMediaRule>;
     delete(): void;
     get disabled(): boolean;
     toggle: (flag?: boolean) => void;

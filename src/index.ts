@@ -3,6 +3,13 @@ interface IQuiet {
   onError?: Function
 }
 
+function deleteRules(styleRule: CSSMediaRule) {
+  return Array.from(styleRule.cssRules, (rule, i) => {
+    styleRule.deleteRule(i)
+    return rule.cssText
+  })
+}
+
 class MediaToggle {
   constructor(options: IQuiet) {
     this.options = options
@@ -10,12 +17,17 @@ class MediaToggle {
 
   options: IQuiet = {}
 
-  cssMediaRules: CSSMediaRule[] = []
+  cssMediaRules: Set<CSSMediaRule> = new Set()
 
   cssTexts: string[][] = []
 
   addRule(rule: CSSMediaRule) {
-    this.cssMediaRules.push(rule)
+    if (!this.cssMediaRules.has(rule)) {
+      this.cssMediaRules.add(rule)
+      if (this.disabled) {
+        this.cssTexts.push(deleteRules(rule))
+      }
+    }
   }
 
   get() {
@@ -37,13 +49,8 @@ class MediaToggle {
 
   toggle = (flag = !this.disabled) => {
     if (flag) {
-      this.cssTexts = this.cssMediaRules.reduce<string[][]>((p, c) => {
-        p.push(
-          Array.from(c.cssRules, (rule, i) => {
-            c.deleteRule(i)
-            return rule.cssText
-          })
-        )
+      this.cssTexts = [...this.cssMediaRules].reduce<string[][]>((p, c) => {
+        p.push(deleteRules(c))
         return p
       }, [])
     } else {
