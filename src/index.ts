@@ -1,5 +1,6 @@
 interface IQuiet {
   quiet?: boolean
+  onError?: Function
 }
 
 class MediaToggle {
@@ -56,19 +57,25 @@ class MediaToggle {
   }
 }
 
-const getWatch = (observer: Function, options: IQuiet) => () => {
+const getWatch = (observer: Function, options: IQuiet = {}) => () => {
   const mediaRules: CSSMediaRule[] = []
-  Array.from(document.styleSheets).forEach(styleSheet => {
+  Array.from(document.styleSheets).forEach((styleSheet: any) => {
     try {
-      const { cssRules } = styleSheet as any
-      Array.from(cssRules).forEach(rule => {
-        if (rule instanceof CSSMediaRule) {
-          mediaRules.push(rule)
-        }
-      })
+      const { disabled } = styleSheet
+      if (!disabled) {
+        const { cssRules } = styleSheet
+        Array.from(cssRules).forEach(rule => {
+          if (rule instanceof CSSMediaRule) {
+            mediaRules.push(rule)
+          }
+        })
+      }
     } catch (e) {
-      if (options?.quiet === false) {
-        console.log(styleSheet)
+      const { quiet, onError } = options
+      if (onError) {
+        onError(e, styleSheet)
+      } else if (quiet === false) {
+        console.error(e)
       }
     }
   })

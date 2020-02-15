@@ -1,5 +1,6 @@
 interface IQuiet {
     quiet?: boolean;
+    onError?: Function;
 }
 declare class MediaToggle {
     constructor(options: IQuiet);
