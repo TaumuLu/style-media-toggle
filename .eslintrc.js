@@ -33,6 +33,7 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 0,
     'react/prop-types': 0,
     '@typescript-eslint/explicit-function-return-type': 0,
+    '@typescript-eslint/interface-name-prefix': 0,
     'no-await-in-loop': 0,
     'no-restricted-syntax': 0,
     'interface-name': [0, 'never-prefix'],

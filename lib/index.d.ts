@@ -1,15 +1,20 @@
+interface IQuiet {
+    quiet?: boolean;
+}
 declare class MediaToggle {
-    constructor(rule: CSSMediaRule);
+    constructor(options: IQuiet);
+    options: IQuiet;
     cssMediaRules: CSSMediaRule[];
     cssTexts: string[][];
     addRule(rule: CSSMediaRule): void;
     get(): CSSMediaRule[];
     delete(): void;
-    toggle(): void;
+    get disabled(): boolean;
+    toggle: (flag?: boolean) => void;
 }
-declare const _default: {
+declare const getMediaToggle: (options: IQuiet) => {
     get(): Map<string, MediaToggle>;
     toggle(): void;
     subscribe(fn: any): () => void;
 };
-export default _default;
+export default getMediaToggle;

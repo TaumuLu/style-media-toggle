@@ -1,7 +1,13 @@
+interface IQuiet {
+  quiet?: boolean
+}
+
 class MediaToggle {
-  constructor(rule: CSSMediaRule) {
-    this.addRule(rule)
+  constructor(options: IQuiet) {
+    this.options = options
   }
+
+  options: IQuiet = {}
 
   cssMediaRules: CSSMediaRule[] = []
 
@@ -24,15 +30,12 @@ class MediaToggle {
     })
   }
 
-  toggle() {
-    if (this.cssTexts.length) {
-      while (this.cssTexts.length) {
-        this.cssMediaRules.forEach(rule => {
-          const cssText = this.cssTexts.shift()
-          cssText.forEach(text => rule.insertRule(text, rule.cssRules.length))
-        })
-      }
-    } else {
+  get disabled() {
+    return !!this.cssTexts.length
+  }
+
+  toggle = (flag = !this.disabled) => {
+    if (flag) {
       this.cssTexts = this.cssMediaRules.reduce<string[][]>((p, c) => {
         p.push(
           Array.from(c.cssRules, (rule, i) => {
@@ -42,11 +45,18 @@ class MediaToggle {
         )
         return p
       }, [])
+    } else {
+      while (this.cssTexts.length) {
+        this.cssMediaRules.forEach(rule => {
+          const cssText = this.cssTexts.shift()
+          cssText.forEach(text => rule.insertRule(text, rule.cssRules.length))
+        })
+      }
     }
   }
 }
 
-const getWatch = (observer: Function) => () => {
+const getWatch = (observer: Function, options: IQuiet) => () => {
   const mediaRules: CSSMediaRule[] = []
   Array.from(document.styleSheets).forEach(styleSheet => {
     try {
@@ -57,7 +67,9 @@ const getWatch = (observer: Function) => () => {
         }
       })
     } catch (e) {
-      // console.info(e)
+      if (options?.quiet === false) {
+        console.log(styleSheet)
+      }
     }
   })
   observer(mediaRules)
@@ -70,24 +82,24 @@ const bindDomObserver = (watch: any) => {
   } else {
     document.addEventListener('DOMSubtreeModified', watch)
   }
+  watch()
 }
 
-const getMediaToggle = () => {
+const getMediaToggle = (options: IQuiet) => {
   const subscribers = []
   const mediaMap = new Map<string, MediaToggle>()
   bindDomObserver(
     getWatch(mediaRules => {
       mediaRules.forEach(mediaRule => {
         const { conditionText } = mediaRule
-        const value = mediaMap.get(conditionText)
-        if (value) {
-          value.addRule(mediaRule)
-        } else {
-          mediaMap.set(conditionText, new MediaToggle(mediaRule))
+        const value = mediaMap.get(conditionText) || new MediaToggle(options)
+        value.addRule(mediaRule)
+        if (!mediaMap.has(conditionText)) {
+          mediaMap.set(conditionText, value)
         }
       })
       subscribers.forEach(fn => fn())
-    })
+    }, options)
   )
 
   return {
@@ -111,4 +123,4 @@ const getMediaToggle = () => {
   }
 }
 
-export default getMediaToggle()
+export default getMediaToggle
