@@ -49,18 +49,20 @@ class MediaToggle {
 const getWatch = (observer: Function) => () => {
   const mediaRules: CSSMediaRule[] = []
   Array.from(document.styleSheets).forEach(styleSheet => {
-    const { cssRules } = styleSheet as any
-    Array.from(cssRules).forEach(rule => {
-      if (rule instanceof CSSMediaRule) {
-        mediaRules.push(rule)
-      }
-    })
+    if (Object.hasOwnProperty.call(styleSheet, 'cssRules')) {
+      const { cssRules } = styleSheet as any
+      Array.from(cssRules).forEach(rule => {
+        if (rule instanceof CSSMediaRule) {
+          mediaRules.push(rule)
+        }
+      })
+    }
   })
   observer(mediaRules)
 }
 
 const bindDomObserver = (watch: any) => {
-  if (typeof MutationObserver !== 'undefined') {
+  if (typeof MutationObserver !== 'undefined' && MutationObserver) {
     const observer = new MutationObserver(watch)
     observer.observe(document, { childList: true, subtree: true })
   } else {
