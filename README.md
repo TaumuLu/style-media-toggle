@@ -5,7 +5,7 @@
 ## 安装
 
 ```
-npm install react-scroll-paged-view --save
+npm install style-media-toggle --save
 ```
 
 ## 说明

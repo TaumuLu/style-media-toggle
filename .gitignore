@@ -66,6 +66,5 @@ typings/
 ####################################
 
 # custom
-lib/
 build/
 dist/
