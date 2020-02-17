@@ -10,14 +10,15 @@ body {
   }
 }
 
-@media screen and (max-width: 900px) {
+@media (prefers-color-scheme: light) {
   body {
-    color: red;
+    background-color: lightblue;
+    color: aqua;
   }
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (max-width: 900px) {
   body {
-    color: blue;
+    color: red;
   }
 }

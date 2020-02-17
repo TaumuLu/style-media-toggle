@@ -22,6 +22,10 @@ import mediaToggle from 'style-media-toggle'
 
 mediaToggle.get()
 // 切换所有媒体查询的样式
-mediaToggle.toggle()
+mediaToggle.toggle(value?: boolean)
 mediaToggle.subscribe()
 ```
+
+## Tampermonkey
+
+基于这个库自己在 greasyfork 上写了个[脚本](https://greasyfork.org/scripts/396483)解决了上面说的问题
