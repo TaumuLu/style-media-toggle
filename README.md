@@ -23,7 +23,7 @@ import getMediaToggle from 'style-media-toggle'
 const mediaToggle = getMediaToggle()
 const mediaMap = mediaToggle.get()
 
-// 切换单条查询规则
+// 切换单条查询规则
 const mediaItem = mediaMap.get('@media(prefers-color-scheme: dark)')
 mediaItem.toggle(value?: boolean)
 
