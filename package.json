@@ -14,7 +14,13 @@
     "type": "git",
     "url": "git+https://github.com/TaumuLu/style-media-toggle.git"
   },
-  "keywords": [],
+  "keywords": [
+    "media",
+    "style media",
+    "media toggle",
+    "style toggle",
+    "prefers-color-scheme"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
