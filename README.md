@@ -18,12 +18,17 @@ css 中@media 的样式 js 无法操作，如果想取消某类或某条@media �
 ## 使用
 
 ```js
-import mediaToggle from 'style-media-toggle'
+import getMediaToggle from 'style-media-toggle'
 
-mediaToggle.get()
+const mediaToggle = getMediaToggle()
+const mediaMap = mediaToggle.get()
+// 切换单条查询规则
+const mediaItem = mediaMap.get('@media(prefers-color-scheme: dark)')
+mediaItem.toggle(value?: boolean)
 // 切换所有媒体查询的样式
 mediaToggle.toggle(value?: boolean)
-mediaToggle.subscribe()
+// 订阅监听样式变化
+mediaToggle.subscribe(watch: Function)
 ```
 
 ## Tampermonkey
