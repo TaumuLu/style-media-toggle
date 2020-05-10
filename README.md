@@ -37,4 +37,4 @@ mediaToggle.subscribe(watch: Function)
 ## Tampermonkey
 
 基于这个库写了个[greasyfork 脚本](https://greasyfork.org/scripts/396483)解决了上面说的问题  
-脚本[github 代码地址](https://github.com/TaumuLu/mac-config/blob/master/configs/tampermonkey/themeScript.js)
+脚本[github 代码地址](https://github.com/TaumuLu/mac-config/blob/master/data/tampermonkey/themeScript.js)
